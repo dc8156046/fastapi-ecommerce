@@ -4,7 +4,8 @@ from app.api.v1.endpoints.products import router as product_router
 from app.api.v1.admin.products import router as admin_product_router
 from app.api.v1.admin.auth import router as admin_auth_router
 from app.api.v1.admin.brands import router as admin_brand_router
-
+from app.api.v1.admin.categories import router as admin_category_router
+from app.api.v1.admin.users import router as admin_user_router
 
 api_router = APIRouter()
 
@@ -17,10 +18,18 @@ api_router.include_router(auth_router, prefix="/auth", tags=["auth"])
 # Add product router
 api_router.include_router(product_router, prefix="/products", tags=["products"])
 
-# Add admin router
+# Add admin product router
 api_router.include_router(
     admin_product_router, prefix="/admin/products", tags=["admin"]
 )
 
 # Add admin brand router
 api_router.include_router(admin_brand_router, prefix="/admin/brands", tags=["admin"])
+
+# Add admin category router
+api_router.include_router(
+    admin_category_router, prefix="/admin/categories", tags=["admin"]
+)
+
+# Add admin user router
+api_router.include_router(admin_user_router, prefix="/admin/users", tags=["admin"])

@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from app.schemas.brand import BrandCreate
+from app.schemas.brand import BrandCreate, BrandUpdate
 from app.api.deps import get_current_active_superuser, get_db
 from app.models.brand import Brand
 
@@ -37,6 +37,19 @@ async def create_brand(
     db.commit()
     db.refresh(brand)
     return {"message": "Create a brand successfully", "data": brand}
+
+
+# update brand
+@router.put("/{brand_id}", summary="Update brand")
+async def update_brand(
+    brand_id: int,
+    brand: BrandUpdate,
+    db=Depends(get_db),
+    current_user=Depends(get_current_active_superuser),
+):
+    db.query(Brand).filter(Brand.id == brand_id).update(brand.dict())
+    db.commit()
+    return {"message": f"Update brand successfully, brand ID: {brand_id}"}
 
 
 # delete brand
