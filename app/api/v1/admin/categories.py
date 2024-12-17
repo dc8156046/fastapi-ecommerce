@@ -8,9 +8,12 @@ router = APIRouter()
 
 @router.get("/", summary="Get categories list")
 async def get_categories(
-    db=Depends(get_db), current_user=Depends(get_current_active_superuser)
+    offset=0,
+    limit=10,
+    db=Depends(get_db),
+    current_user=Depends(get_current_active_superuser),
 ):
-    categories = db.query(Category).all()
+    categories = db.query(Category).offset(offset).limit(limit).all()
     return {"message": "Get categories list successfully", "data": categories}
 
 

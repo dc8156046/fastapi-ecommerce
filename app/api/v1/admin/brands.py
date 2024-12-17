@@ -9,9 +9,12 @@ router = APIRouter()
 # get brands list
 @router.get("/", summary="Get brands list")
 async def get_brands(
-    db=Depends(get_db), current_user=Depends(get_current_active_superuser)
+    offset=0,
+    limit=10,
+    db=Depends(get_db),
+    current_user=Depends(get_current_active_superuser),
 ):
-    brands = db.query(Brand).all()
+    brands = db.query(Brand).offset(offset).limit(limit).all()
     return {"message": "Get brands list successfully", "data": brands}
 
 

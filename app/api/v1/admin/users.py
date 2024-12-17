@@ -8,9 +8,12 @@ router = APIRouter()
 
 @router.get("/", summary="Get users list")
 async def get_users(
-    db=Depends(get_db), current_user=Depends(get_current_active_superuser)
+    offset=0,
+    limit=10,
+    db=Depends(get_db),
+    current_user=Depends(get_current_active_superuser),
 ):
-    users = db.query(User).all()
+    users = db.query(User).offset(offset).limit(limit).all()
     return {"message": "Get users list successfully", "data": users}
 
 

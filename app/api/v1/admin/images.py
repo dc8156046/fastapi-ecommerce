@@ -8,10 +8,23 @@ router = APIRouter()
 
 @router.get("/", summary="Get images list")
 async def get_images(
-    db=Depends(get_db), current_user=Depends(get_current_active_superuser)
+    offset=0,
+    limit=10,
+    db=Depends(get_db),
+    current_user=Depends(get_current_active_superuser),
 ):
-    images = db.query(ProductImage).all()
+    images = db.query(ProductImage).offset(offset).limit(limit).all()
     return {"message": "Get images list successfully", "data": images}
+
+
+@router.get("/product/{product_id}", summary="Get images list by product ID")
+async def get_images_by_product_id(
+    product_id: int,
+    db=Depends(get_db),
+    current_user=Depends(get_current_active_superuser),
+):
+    images = db.query(ProductImage).filter(ProductImage.product_id == product_id).all()
+    return {"message": "Get images list by product ID successfully", "data": images}
 
 
 @router.get("/{image_id}", summary="Get image detail", response_model=ImageResponse)
@@ -24,7 +37,7 @@ async def get_image(
     return {"message": "Get image detail successfully", "data": image}
 
 
-@router.post("/", summary="Create image", response_model=ImageResponse)
+@router.post("/", summary="Upload product image", response_model=ImageResponse)
 async def create_image(
     image: ImageCreate,
     db=Depends(get_db),
@@ -33,7 +46,7 @@ async def create_image(
     db.add(ProductImage(**image.dict()))
     db.commit()
     db.refresh(image)
-    return {"message": "Create a image successfully", "data": image}
+    return {"message": "Upload product image successfully", "data": image}
 
 
 @router.put("/{image_id}", summary="Update image", response_model=ImageResponse)
@@ -45,7 +58,7 @@ async def update_image(
 ):
     db.query(ProductImage).filter(ProductImage.id == image_id).update(image.dict())
     db.commit()
-    return {"message": f"Update image successfully, image ID: {image_id}"}
+    return {"message": f"Update product image successfully, image ID: {image_id}"}
 
 
 @router.delete("/{image_id}", summary="Delete image")
@@ -56,4 +69,4 @@ async def delete_image(
 ):
     db.query(ProductImage).filter(ProductImage.id == image_id).delete()
     db.commit()
-    return {"message": f"Delete image successfully, image ID: {image_id}"}
+    return {"message": f"Delete product image successfully, image ID: {image_id}"}

@@ -8,9 +8,12 @@ router = APIRouter()
 
 @router.get("/", summary="Get products list")
 async def get_products(
-    db=Depends(get_db), current_user=Depends(get_current_active_superuser)
+    offset=0,
+    limit=10,
+    db=Depends(get_db),
+    current_user=Depends(get_current_active_superuser),
 ):
-    products = db.query(Product).all()
+    products = db.query(Product).offset(offset).limit(limit).all()
     return {"message": "Get products list successfully", "data": products}
 
 
