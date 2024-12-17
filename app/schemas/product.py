@@ -1,7 +1,6 @@
 from pydantic import BaseModel
 from datetime import datetime
-from enum import Enum
-from typing import Optional, List
+from typing import Optional
 
 
 # Create product schema
