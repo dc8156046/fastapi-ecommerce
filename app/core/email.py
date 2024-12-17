@@ -1,7 +1,7 @@
 from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
 from pydantic import EmailStr
 from jinja2 import Environment, select_autoescape, PackageLoader
-from app.core import settings
+from app.core.settings import settings
 from datetime import datetime
 
 email_conf = ConnectionConfig(
