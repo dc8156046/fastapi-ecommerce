@@ -51,7 +51,7 @@ class ProductImage(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     product_id = Column(Integer, ForeignKey("products.id"))
-    image = Column(String(255), index=True)
+    image_url = Column(String(255), index=True)
     alt_text = Column(String(255), nullable=True)
     main_image = Column(Boolean, default=False)
     is_active = Column(Boolean, default=True)

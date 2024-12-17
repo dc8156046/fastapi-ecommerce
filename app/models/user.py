@@ -70,11 +70,6 @@ class UserProfile(Base):
     user = relationship("User", back_populates="profile")
 
 
-from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, DateTime
-from sqlalchemy.orm import relationship
-from datetime import datetime
-
-
 class Country(Base):
     __tablename__ = "countries"
 
