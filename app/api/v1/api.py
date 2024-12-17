@@ -10,7 +10,7 @@ from app.api.v1.admin.users import router as admin_user_router
 api_router = APIRouter()
 
 # Add customer auth router
-api_router.include_router(auth_router, prefix="/auth", tags=["auth"])
+api_router.include_router(auth_router, prefix="/auth", tags=["customer-login"])
 
 # Add product router
 api_router.include_router(product_router, prefix="/products", tags=["products"])
@@ -20,20 +20,20 @@ api_router.include_router(admin_auth_router, prefix="/admin/auth", tags=["admin-
 
 # Add admin product router
 api_router.include_router(
-    admin_product_router, prefix="/admin/products", tags=["admin-products"]
+    admin_product_router, prefix="/admin/products", tags=["product-management"]
 )
 
 # Add admin brand router
 api_router.include_router(
-    admin_brand_router, prefix="/admin/brands", tags=["admin-brands"]
+    admin_brand_router, prefix="/admin/brands", tags=["brand-management"]
 )
 
 # Add admin category router
 api_router.include_router(
-    admin_category_router, prefix="/admin/categories", tags=["admin-categories"]
+    admin_category_router, prefix="/admin/categories", tags=["category-management"]
 )
 
 # Add admin user router
 api_router.include_router(
-    admin_user_router, prefix="/admin/users", tags=["admin-users"]
+    admin_user_router, prefix="/admin/users", tags=["user-management"]
 )
