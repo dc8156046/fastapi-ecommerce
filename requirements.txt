@@ -13,4 +13,5 @@ jinja2
 stripe
 paypalrestsdk
 loguru
+boto3
 
