@@ -14,4 +14,4 @@ stripe
 paypalrestsdk
 loguru
 boto3
-
+Pillow
