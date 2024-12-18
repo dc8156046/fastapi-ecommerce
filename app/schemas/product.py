@@ -265,7 +265,7 @@ class Product(ProductBase):
     created_at: datetime
     updated_at: datetime
     deleted_at: Optional[datetime] = None
-    images: List[ProductImageResponse] = []
+    images: List[ProductImage] = []
     attributes: List[ProductAttribute] = []
     variants: List[ProductVariant] = []
 

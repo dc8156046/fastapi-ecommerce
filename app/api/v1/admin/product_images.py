@@ -19,33 +19,33 @@ async def upload_image(
     db: Session = Depends(get_db),
     current_user=Depends(get_current_active_superuser),
 ):
-    """上传产品图片到云存储"""
-    # 验证产品
+    """Upload product image"""
+    # verify product exists
     if not db.query(Product).filter(Product.id == product_id).first():
         raise HTTPException(status_code=404, detail="Product not found")
 
-    # 验证文件类型
+    # verify file is an image
     if not file.content_type.startswith("image/"):
         raise HTTPException(status_code=400, detail="File must be an image")
 
     try:
-        # 处理图片
+        # process image
         image_data, width, height = await storage.process_image(file)
 
-        # 生成唯一文件名
+        # generate filename
         ext = file.filename.split(".")[-1]
         filename = f"{uuid.uuid4()}.{ext}"
 
-        # 上传到云存储
+        # upload file to storage
         file_url = await storage.upload_file(image_data, filename)
 
-        # 更新主图状态
+        # set other images to False if main_image is True
         if main_image:
             db.query(ProductImage).filter(ProductImage.product_id == product_id).update(
                 {"main_image": False}
             )
 
-        # 创建数据库记录
+        # save image to database
         image = ProductImage(
             product_id=product_id,
             image_url=file_url,
@@ -73,16 +73,16 @@ async def delete_image(
     db: Session = Depends(get_db),
     current_user=Depends(get_current_active_superuser),
 ):
-    """删除云存储中的产品图片"""
+    """Delete product image"""
     image = db.query(ProductImage).filter(ProductImage.id == image_id).first()
     if not image:
         raise HTTPException(status_code=404, detail="Image not found")
 
     try:
-        # 从云存储删除文件
+        # Delete file from storage
         await storage.delete_file(image.image_url)
 
-        # 删除数据库记录
+        # delete image from database
         db.delete(image)
         db.commit()
 
