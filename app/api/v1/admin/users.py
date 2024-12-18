@@ -6,7 +6,7 @@ from app.schemas.user import UserCreate, UserUpdate
 router = APIRouter()
 
 
-@router.get("/", summary="Get users list")
+@router.get("/", summary="Get users list", status_code=200)
 async def get_users(
     offset=0,
     limit=10,
@@ -17,7 +17,7 @@ async def get_users(
     return {"message": "Get users list successfully", "data": users}
 
 
-@router.get("/{user_id}", summary="Get user detail")
+@router.get("/{user_id}", summary="Get user detail", status_code=200)
 async def get_user(
     user_id: int,
     db=Depends(get_db),
@@ -39,7 +39,7 @@ async def create_user(
     return {"message": "Create a user successfully", "data": user}
 
 
-@router.put("/{user_id}", summary="Update user")
+@router.put("/{user_id}", summary="Update user", status_code=200)
 async def update_user(
     user_id: int,
     user: UserUpdate,
@@ -51,7 +51,7 @@ async def update_user(
     return {"message": f"Update user successfully, user ID: {user_id}"}
 
 
-@router.delete("/{user_id}", summary="Delete user")
+@router.delete("/{user_id}", summary="Delete user", status_code=200)
 async def delete_user(
     user_id: int,
     db=Depends(get_db),
