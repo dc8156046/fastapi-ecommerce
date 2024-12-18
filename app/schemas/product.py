@@ -89,6 +89,31 @@ class ProductImageCreate(ProductImageBase):
     product_id: int = Field(..., gt=0, description="Related product ID")
 
 
+class ImageUploadRequest(BaseModel):
+    """Image upload request schema"""
+
+    product_id: int = Field(..., gt=0, description="Related product ID")
+    alt_text: Optional[str] = Field(None, max_length=255, description="Alt text")
+    main_image: bool = Field(False, description="Is main image")
+    sort_order: int = Field(0, description="Sort order")
+
+
+class ImageResponse(BaseModel):
+    """Image response schema"""
+
+    id: int
+    image_url: str
+    product_id: int
+    alt_text: Optional[str]
+    main_image: bool
+    width: Optional[int]
+    height: Optional[int]
+    image_size: Optional[int]
+
+    class Config:
+        from_attributes = True
+
+
 class ProductImage(ProductImageBase):
     """Product image schema"""
 
@@ -240,7 +265,7 @@ class Product(ProductBase):
     created_at: datetime
     updated_at: datetime
     deleted_at: Optional[datetime] = None
-    images: List[ProductImage] = []
+    images: List[ProductImageResponse] = []
     attributes: List[ProductAttribute] = []
     variants: List[ProductVariant] = []
 
