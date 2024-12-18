@@ -1,12 +1,14 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, constr
 from typing import Optional
 from datetime import datetime
 
 
 # Brand base schema
 class BrandBase(BaseModel):
-    name: str
-    slug: str
+    name: str = Field(..., min_length=1, max_length=100, description="brand name")
+    slug: constr(min_length=1, max_length=100) = Field(
+        ..., description="Brand slug (URL)"
+    )
     description: Optional[str] = None
     seo_title: Optional[str] = None
     seo_description: Optional[str] = None

@@ -18,6 +18,7 @@ async def upload_image(
     sort_order: int = Form(0),
     db: Session = Depends(get_db),
     current_user=Depends(get_current_active_superuser),
+    summary="Upload product image to cloud storage",
 ):
     """Upload product image"""
     # verify product exists
@@ -72,6 +73,7 @@ async def delete_image(
     image_id: int,
     db: Session = Depends(get_db),
     current_user=Depends(get_current_active_superuser),
+    summary="Delete product image from cloud storage",
 ):
     """Delete product image"""
     image = db.query(ProductImage).filter(ProductImage.id == image_id).first()

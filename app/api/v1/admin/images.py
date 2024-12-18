@@ -11,7 +11,11 @@ router = APIRouter()
 uploader = ImageUploader()
 
 
-@router.post("/upload/", summary="Upload product image", response_model=ImageResponse)
+@router.post(
+    "/upload/",
+    summary="Upload product image to local storage",
+    response_model=ImageResponse,
+)
 async def upload_image(
     file: UploadFile = File(...),
     product_id: int = Form(...),
@@ -89,7 +93,7 @@ async def get_product_images(
     return images
 
 
-@router.delete("/{image_id}", summary="Delete product image")
+@router.delete("/{image_id}", summary="Delete product image from local storage")
 async def delete_image(
     image_id: int,
     db: Session = Depends(get_db),
