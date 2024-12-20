@@ -45,7 +45,7 @@ class User(Base):
 
     profile = relationship("UserProfile", back_populates="user")
 
-    addresses = relationship("UserAddress", back_populates="user")
+    addresses = relationship("Address", back_populates="user")
 
 
 # User profile model
