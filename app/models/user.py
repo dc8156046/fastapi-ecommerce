@@ -44,7 +44,7 @@ class User(Base):
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     profile = relationship("UserProfile", back_populates="user")
-
+    cart = relationship("Cart", back_populates="user")
     addresses = relationship("Address", back_populates="user")
 
 
