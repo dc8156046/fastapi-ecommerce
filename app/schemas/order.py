@@ -55,7 +55,7 @@ class OrderItemInDB(OrderItemBase):
     updated_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 # Order Schemas
@@ -99,4 +99,4 @@ class OrderInDB(OrderBase):
     items: List[OrderItemInDB]
 
     class Config:
-        orm_mode = True
+        from_attributes = True
