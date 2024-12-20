@@ -4,12 +4,21 @@ from app.models.user import Country, State
 
 
 def populate_initial_data(db: Session):
+
+    # Function to check if a country exists
+    def get_or_create_country(name: str, code: str, is_active: bool):
+        existing_country = db.query(Country).filter_by(name=name).first()
+        if existing_country is None:
+            new_country = Country(name=name, code=code, is_active=is_active)
+            db.add(new_country)
+            return new_country
+        return existing_country
+
     # Create countries
-    usa = Country(name="United States", code="USA", is_active=True)
+    usa = get_or_create_country(name="United States", code="USA", is_active=True)
 
-    canada = Country(name="Canada", code="CAN", is_active=True)
+    canada = get_or_create_country(name="Canada", code="CAN", is_active=True)
 
-    db.add_all([usa, canada])
     db.flush()  # Flush to get IDs
 
     # US States

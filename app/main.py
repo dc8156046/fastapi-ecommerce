@@ -24,13 +24,13 @@ Base.metadata.create_all(bind=engine)
 
 
 # Initialize the database with some data
-@app.on_event("startup")
-async def startup_event():
-    try:
-        with SessionLocal() as db:
-            populate_initial_data(db)
-    except Exception as e:
-        print(f"Error initializing database: {e}")
+# @app.on_event("startup")
+# async def startup_event():
+#     try:
+#         with SessionLocal() as db:
+#             populate_initial_data(db)
+#     except Exception as e:
+#         print(f"Error initializing database: {e}")
 
 
 # Include API routes

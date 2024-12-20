@@ -29,7 +29,9 @@ class Category(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    parent = relationship("Category", remote_side=[id])
-    children = relationship("Category")
+    parent = relationship(
+        "Category", remote_side=[id], back_populates="children", overlaps="children"
+    )
+    children = relationship("Category", back_populates="parent", overlaps="parent")
     products = relationship("Product", back_populates="category")
     # subcategories = relationship("Category", back_populates="parent")
