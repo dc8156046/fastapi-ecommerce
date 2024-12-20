@@ -25,7 +25,7 @@ router = APIRouter()
 )
 async def get_products(
     skip: int = 0,
-    limit: int = 100,
+    limit: int = 15,
     category_id: Optional[int] = None,
     brand_id: Optional[int] = None,
     is_active: Optional[bool] = None,

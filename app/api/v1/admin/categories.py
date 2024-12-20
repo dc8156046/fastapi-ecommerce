@@ -17,7 +17,7 @@ router = APIRouter()
 )
 async def get_categories(
     skip: int = 0,
-    limit: int = 100,
+    limit: int = 15,
     db: Session = Depends(get_db),
     current_user=Depends(get_current_active_superuser),
 ):
