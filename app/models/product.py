@@ -111,6 +111,7 @@ class Product(Base):
     variants = relationship(
         "ProductVariant", back_populates="product", cascade="all, delete-orphan"
     )
+    reviews = relationship("ProductReview", back_populates="product")
 
 
 class ProductImage(Base):
