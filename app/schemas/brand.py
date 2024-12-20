@@ -9,6 +9,8 @@ class BrandBase(BaseModel):
     slug: constr(min_length=1, max_length=100) = Field(
         ..., description="Brand slug (URL)"
     )
+    logo_url: Optional[str] = None
+    website: Optional[str] = None
     description: Optional[str] = None
     seo_title: Optional[str] = None
     seo_description: Optional[str] = None

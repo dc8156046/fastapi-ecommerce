@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field, constr
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime
 
 
@@ -14,6 +14,7 @@ class CategoryBase(BaseModel):
     seo_description: Optional[str] = None
     seo_keywords: Optional[str] = None
     parent_id: Optional[int] = None
+    sort_order: Optional[int] = 0
 
 
 class CategoryCreate(CategoryBase):
@@ -28,6 +29,11 @@ class CategoryResponse(CategoryBase):
     id: int
     created_at: datetime
     updated_at: datetime
+    children: List["CategoryResponse"] = []
 
     class Config:
         from_attributes = True
+
+
+# This is needed for the self-referencing type hint to work
+CategoryResponse.model_rebuild()

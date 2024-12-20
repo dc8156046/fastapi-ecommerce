@@ -25,6 +25,7 @@ class Category(Base):
     seo_keywords = Column(String(255), nullable=True)
     parent_id = Column(Integer, ForeignKey("categories.id"), nullable=True)
     is_active = Column(Boolean, default=True)
+    sort_order = Column(Integer, default=0)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 

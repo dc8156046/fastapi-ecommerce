@@ -1,5 +1,5 @@
 import uuid
-from fastapi import APIRouter, Depends, File, Form, UploadFile, HTTPException
+from fastapi import APIRouter, Depends, File, Form, UploadFile, HTTPException, status
 from sqlalchemy.orm import Session
 from app.api.deps import get_current_active_superuser, get_db
 from app.models.product import ProductImage, Product
@@ -9,7 +9,11 @@ router = APIRouter()
 storage = get_storage_backend()
 
 
-@router.post("/upload/")
+@router.post(
+    "/upload/",
+    summary="Upload product image to cloud storage",
+    status_code=status.HTTP_201_CREATED,
+)
 async def upload_image(
     file: UploadFile = File(...),
     product_id: int = Form(...),
@@ -68,7 +72,11 @@ async def upload_image(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.delete("/{image_id}")
+@router.delete(
+    "/{image_id}",
+    summary="Delete product image",
+    status_code=status.HTTP_204_NO_CONTENT,
+)
 async def delete_image(
     image_id: int,
     db: Session = Depends(get_db),
