@@ -95,7 +95,6 @@ class State(Base):
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     country = relationship("Country", back_populates="states")
-    cities = relationship("City", back_populates="state")
 
 
 class Address(Base):
