@@ -32,4 +32,4 @@ class Category(Base):
     parent = relationship("Category", remote_side=[id])
     children = relationship("Category")
     products = relationship("Product", back_populates="category")
-    subcategories = relationship("Category", back_populates="parent")
+    # subcategories = relationship("Category", back_populates="parent")
