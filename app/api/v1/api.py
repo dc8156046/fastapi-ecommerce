@@ -8,6 +8,7 @@ from app.api.v1.admin.categories import router as admin_category_router
 from app.api.v1.admin.users import router as admin_user_router
 from app.api.v1.admin.images import router as auth_image_router
 from app.api.v1.admin.product_images import router as admin_image_router
+from app.api.v1.admin.product_attributes import router as admin_product_attribute_router
 
 api_router = APIRouter()
 
@@ -50,4 +51,11 @@ api_router.include_router(
     admin_image_router,
     prefix="/admin/product-images",
     tags=["product-image-management"],
+)
+
+# Add admin product attribute router
+api_router.include_router(
+    admin_product_attribute_router,
+    prefix="/admin/product-attributes",
+    tags=["product-attribute-management"],
 )

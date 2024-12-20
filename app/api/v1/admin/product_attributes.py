@@ -19,9 +19,7 @@ router = APIRouter()
 
 
 # Product Attribute Routes
-@router.post(
-    "/attributes/", response_model=ProductAttribute, status_code=status.HTTP_201_CREATED
-)
+@router.post("/", response_model=ProductAttribute, status_code=status.HTTP_201_CREATED)
 def create_product_attribute(
     attribute: ProductAttributeCreate,
     db: Session = Depends(get_db),
@@ -34,7 +32,7 @@ def create_product_attribute(
     return db_attribute
 
 
-@router.get("/attributes/", response_model=List[ProductAttribute])
+@router.get("/", response_model=List[ProductAttribute])
 def list_product_attributes(
     skip: int = 0,
     limit: int = 100,
@@ -45,7 +43,7 @@ def list_product_attributes(
     return attributes
 
 
-@router.get("/attributes/{attribute_id}", response_model=ProductAttribute)
+@router.get("/{attribute_id}", response_model=ProductAttribute)
 def get_product_attribute(
     attribute_id: int,
     db: Session = Depends(get_db),
@@ -61,7 +59,7 @@ def get_product_attribute(
     return attribute
 
 
-@router.put("/attributes/{attribute_id}", response_model=ProductAttribute)
+@router.put("/{attribute_id}", response_model=ProductAttribute)
 def update_product_attribute(
     attribute_id: int,
     attribute: ProductAttributeUpdate,
@@ -84,7 +82,7 @@ def update_product_attribute(
     return db_attribute
 
 
-@router.delete("/attributes/{attribute_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{attribute_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_product_attribute(
     attribute_id: int,
     db: Session = Depends(get_db),
